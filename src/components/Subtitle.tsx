@@ -13,9 +13,10 @@ export function ControlledSubtitleInput<FormType extends FieldValues>({
             name={name}
             rules={rules}
             render={({field, fieldState: {error}}) => (
-                <TextInput style={styles.textInput} onChangeText={(subtitle) => {
+                <TextInput inputMode="text" style={styles.textInput} onChangeText={(subtitle) => {
                     field.onChange(subtitle)
                 }} 
+                    
                     placeholder="Adicionar legenda"
                     value={field.value}
                 />
@@ -28,9 +29,12 @@ const styles = StyleSheet.create({
     textInput: {
         alignSelf: 'center',
         textAlign: "justify",
-        fontSize: 11,
+        fontSize: 10,
         fontWeight: "bold",
-        height: '42%',
-        width: '85%'
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 7,
+        
+        
       },
 })

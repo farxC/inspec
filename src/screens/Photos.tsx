@@ -3,12 +3,12 @@ import { PhotoSection } from "../components/PhotoSection"
 import { PhotoObject } from "../types/photos"
 import { SubmitButton } from "../components/SubmitButton"
 import styles from "../assets/styles"
+import { StrictMode, useEffect } from "react"
 export const Photos = () => {
     const IDs: PhotoObject[] = [
         {IDsSession: [0,1,2]},
         {IDsSession: [3,4,5]},
         {IDsSession: [6,7,8]},
-        {IDsSession: [9,10,11]}
     ]
 
     return(
@@ -18,7 +18,6 @@ export const Photos = () => {
                 <PhotoSection id={IDs[0]} title="Obrigatórias" mandatory={true}/>
                 <PhotoSection id={IDs[1]} title="Opcionais" mandatory={false}/>
                 <PhotoSection id={IDs[2]} mandatory={false}/>
-                
             </ScrollView> 
             <View>
                 <SubmitButton onPress={() => {}} ></SubmitButton>

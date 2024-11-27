@@ -2,8 +2,18 @@ import { Store } from 'pullstate'
 import { report_data } from '../types/reportData'
 
 
+
+const dateToString = (date: Date) => {
+    let day = date.getDate()
+    let month = date.getMonth() + 1
+    let year = date.getFullYear()
+    return day + "/" + month + "/" + year
+}
+
+
 export const formStore = new Store<report_data>({
-   images_report: {
+    date: dateToString(new Date),
+    images_report: {
     failureEvidence:'',
     identifier: '',
     overview: '',
@@ -30,7 +40,8 @@ export const formStore = new Store<report_data>({
     "9": '',
     "10": '',
     "11": ''
-   }}
+   }
+    }
    
 )
 

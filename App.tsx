@@ -6,7 +6,7 @@
  */
 
 import { NavigationContainer } from '@react-navigation/native';
-import React, { useEffect } from 'react';
+import React, { StrictMode, useEffect } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -32,11 +32,12 @@ import Navigator from './src/navigation/Index';
 function App(): React.JSX.Element {
   
   return (
-    <NavigationContainer>
-      <Navigator>
-        
-      </Navigator>
-    </NavigationContainer>
+   
+         <NavigationContainer>
+          <Navigator/>        
+        </NavigationContainer>
+
+   
   );
 }
 

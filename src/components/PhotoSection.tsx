@@ -3,7 +3,7 @@ import { SafeAreaView, Text, View } from "react-native"
 import { report_data } from "../types/reportData"
 import React from "react"
 import { PhotoObject } from "../types/photos"
-import { ControlledPhotoCard } from "./PhotoCard"
+import { ControlledPhotoCard, PhotoCard } from "./PhotoCard"
 import { StyleSheet } from "react-native"
 
 interface SectionProps{
@@ -15,32 +15,33 @@ interface SectionProps{
 
 
 export const PhotoSection = ({title, mandatory, id}: SectionProps) => {
+    
     const photosIDs = id.IDsSession;
     const {control} = useFormContext<report_data>();
-    
     const req = "*"
 
     return(
-        <SafeAreaView style={styles.main}>
-             {title? <View style={styles.borderView}><Text style={{alignSelf:"center", fontWeight: '900', fontSize: 15}}>{title}</Text></View> : <></>}
+        <View style={styles.main}>
+            {title? <View style={styles.borderView}><Text style={{alignSelf:"center", fontWeight: '900', fontSize: 15}}>{title}</Text></View> : <></>}
             <View style={styles.container}>
                 {mandatory? 
-                <>
+                    <>
                     <ControlledPhotoCard id={photosIDs[0]} control={control} rules={{required: req}} name="images_report.identifier" title="Identificação"/>
                     <ControlledPhotoCard id={photosIDs[1]} control={control} rules={{required: req}} name="images_report.overview" title="Visão Geral"/>
                     <ControlledPhotoCard id={photosIDs[2]} control={control} rules={{required: req}} name="images_report.failureEvidence" title="Evidência de Falha"/>
-                </>
+                    </>
                 :
-                <>
+                    <>
+                    
                     <ControlledPhotoCard id={photosIDs[0]} control={control} name="images_report.optionalImages"/>
                     <ControlledPhotoCard id={photosIDs[1]} control={control} name="images_report.optionalImages"/>
                     <ControlledPhotoCard id={photosIDs[2]} control={control} name="images_report.optionalImages"/>
-                </>
+                    </>
                     
                 }
             </View>
            
-        </SafeAreaView>
+        </View>
     )
 
 }
