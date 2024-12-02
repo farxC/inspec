@@ -7,6 +7,7 @@ exports.app = void 0;
 const cors_1 = __importDefault(require("cors"));
 const express_1 = __importDefault(require("express"));
 const routes_1 = require("./routes");
+const photos_routes_1 = require("./routes/photos.routes");
 const app = (0, express_1.default)();
 exports.app = app;
 // ==> API ROUTES:
@@ -16,7 +17,9 @@ app.use(express_1.default.json());
 app.use(express_1.default.json({ type: 'application/vnd.api+json' }));
 app.use((0, cors_1.default)());
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+    res.send('Hello World!!!');
 });
+// ==> API Routes:
 app.use(index);
+app.use('/api/', photos_routes_1.photosRoutes);
 //# sourceMappingURL=app.js.map

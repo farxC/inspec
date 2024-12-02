@@ -3,9 +3,28 @@ import { PhotoSection } from "../components/PhotoSection"
 import { PhotoObject } from "../types/photos"
 import { SubmitButton } from "../components/SubmitButton"
 import styles from "../assets/styles"
-import { StrictMode, useEffect } from "react"
-import { formStore } from "../storage/global"
+
+import { useNavigation } from "@react-navigation/native"
+import { PhotosReportNavigationType, StackNavigation } from "../navigation/Routes"
+import { SubmitErrorHandler, SubmitHandler, useFormContext } from "react-hook-form"
+import { report_data } from "../types/reportData"
 export const Photos = () => {
+
+    const {navigate} = useNavigation<StackNavigation>();
+    const {control, handleSubmit} = useFormContext<report_data>();
+
+
+    const goFinish = () => {
+       navigate("Finish")
+    }
+
+
+    const onInvalid: SubmitErrorHandler<report_data> = (errors) => {
+        if (errors.images_report){
+            console.log(errors)
+        }
+    }
+
     const IDs: PhotoObject[] = [
         {IDsSession: [0,1,2]},
         {IDsSession: [3,4,5]},
@@ -21,7 +40,7 @@ export const Photos = () => {
                 <PhotoSection id={IDs[2]} mandatory={false}/>
             </ScrollView> 
             <View>
-                <SubmitButton onPress={() => console.log("Hello world!")} ></SubmitButton>
+                <SubmitButton onPress={handleSubmit(goFinish, onInvalid)} ></SubmitButton>
             </View>
 
        </SafeAreaView>

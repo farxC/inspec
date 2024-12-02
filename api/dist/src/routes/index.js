@@ -7,7 +7,7 @@ exports.router = router;
 router.get("/api", (req, res) => {
     res.status(200).send({
         success: 'true',
-        message: 'Seja bem-vindo(a) a API Node.js + PostgreSQL + Azure!',
+        message: 'Welcome to the application!',
         version: '1.0.0',
     });
 });
