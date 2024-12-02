@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import { Image } from "react-native";
 import React from "react";
 import { ControlledSubtitleInput } from "./Subtitle";
+import { loadImage } from "../storage/loadImages";
 
 
 interface PhotoProps {
@@ -99,41 +100,30 @@ export const PhotoCard = ({
     }
   }
 
-  useEffect(() => {
-  
-  })
+
 
   const deleteItem = (id: number) => {
     setIsPressed(!isPressed)
     AsyncStorage.removeItem(id.toString())
     const removeCurrUri = ''
+    setAddImageView(true)
     formStore.update((state) => {
       handleStateOfImageSelected(state, id, removeCurrUri)
     })
-
-    setAddImageView(true)
   }
 
   // Load saved image from AsyncStorage on component mount
   useEffect(() => {
-    const loadImage = async () => {
-      try {
-        const imageURI = await AsyncStorage.getItem(id.toString());
-        if (typeof imageURI === "string") {
-          const loadedImage = await JSON.parse(imageURI)
-          clearAllItems()
-          setSelectedImage(loadedImage);
-          setAddImageView(false);
-        }
-
-      } catch (error) {
-        console.error('Error loading image from AsyncStorage:', error);
+    const retrieveImage = async() => {
+      const loadedImage = await loadImage(id);
+      if(typeof loadedImage === "string" && loadedImage.length > 1){
+        setSelectedImage(loadedImage);
+        setAddImageView(false);
       }
-    };
-    loadImage();
-
-
-  }, []);
+    }
+    retrieveImage();
+    
+  }, [id]);
 
 
 
@@ -231,7 +221,6 @@ export const PhotoCard = ({
 
 
   return (
-
     <View style={styles.viewAdd}>
       {addImageView ? (
         <TouchableOpacity style={styles.buttonAdd} onPress={imagePicker}>
@@ -241,7 +230,6 @@ export const PhotoCard = ({
         <Image source={{ uri: selectedImage }} style={styles.img} />
 
       )}
-
       <View>
         {title ? <Text style={styles.title}>{title}</Text> : <ControlledSubtitleInput control={control} rules={{ maxLength: 30 }} name={`images_subtitles.${id}`} />}
         <View style={styles.iconsView}>
@@ -249,7 +237,7 @@ export const PhotoCard = ({
             <Icon size={22} style={styles.icons} name='camera' />
           </Pressable>
           <Pressable onPress={() => deleteItem(id)}>
-            <Icon size={22} style={[styles.icons, { color: isPressed ? '#e01b1b' : '#fff' }]} name='trash'></Icon>
+            <Icon size={22} style={styles.icons} name='trash'></Icon>
           </Pressable>
 
         </View>

@@ -4,6 +4,7 @@ import { PhotoObject } from "../types/photos"
 import { SubmitButton } from "../components/SubmitButton"
 import styles from "../assets/styles"
 import { StrictMode, useEffect } from "react"
+import { formStore } from "../storage/global"
 export const Photos = () => {
     const IDs: PhotoObject[] = [
         {IDsSession: [0,1,2]},
@@ -20,7 +21,7 @@ export const Photos = () => {
                 <PhotoSection id={IDs[2]} mandatory={false}/>
             </ScrollView> 
             <View>
-                <SubmitButton onPress={() => {}} ></SubmitButton>
+                <SubmitButton onPress={() => console.log("Hello world!")} ></SubmitButton>
             </View>
 
        </SafeAreaView>
