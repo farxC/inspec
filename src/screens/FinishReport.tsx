@@ -25,33 +25,15 @@ export const FinishReport = ({route}: FinishScreenProps) => {
     //Receive data using pull state
     const receivedData = formStore.useState((state) => state);
     const ReportID = generateUniqueID();
+    const report_JSON = JSON.stringify(receivedData)
 
-    const sendPhotos = async (data: report_data) => {
-        api.get("/api").then((response) => {console.log(response.data)}).catch((error) => console.log(error))
-        
+    const sendPhotos = async (data: string) => {
+       const res = await api.post("/api/photos", data)
+       console.log(res.data)
+       return res
     }
 
-    const getIndex = async () => {
-        try{
-
-            const res = await api.get("/api")
-        } catch(error){
-            if (axios.isAxiosError(error)) {
-                console.log("Error Response:", error.response);
-            } else {
-                console.log("Unexpected Error:", error);
-            }
-        }
-
-    }
-
-    useEffect( () => {
-        sendPhotos(receivedData)
-    })
-
-    
-   
-    
+    const res = await sendPhotos(report_JSON)   
 
 
     // Getting the image from the ImagesReportField interface.
@@ -79,9 +61,7 @@ export const FinishReport = ({route}: FinishScreenProps) => {
 
     return (
         <View>
-            <TouchableOpacity onPress={getIndex}>
-                <Text>GET</Text>
-            </TouchableOpacity>
+           
         </View>
     )
 }

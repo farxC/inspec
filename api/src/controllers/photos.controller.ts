@@ -10,18 +10,17 @@ import { OS } from "../items/photos.interface";
 
 //TO DO..
 
-
-
 export const storePhoto = async(req, res) => {
     try{
         console.log(req)
         res.status(201).send({
+            success: 'true',
             message: "Photos sent",
             body:{
                 container: {req}
             }
         })
     } catch(error){
-
+        console.log(error)
     }
 }

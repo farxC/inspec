@@ -8,12 +8,11 @@ import { useNavigation } from "@react-navigation/native"
 import { PhotosReportNavigationType, StackNavigation } from "../navigation/Routes"
 import { SubmitErrorHandler, SubmitHandler, useFormContext } from "react-hook-form"
 import { report_data } from "../types/reportData"
+import { useEffect } from "react"
 export const Photos = () => {
 
     const {navigate} = useNavigation<StackNavigation>();
-    const {control, handleSubmit} = useFormContext<report_data>();
-
-
+    const {handleSubmit} = useFormContext<report_data>(); 
     const goFinish = () => {
        navigate("Finish")
     }
@@ -35,6 +34,7 @@ export const Photos = () => {
        <SafeAreaView style={styles.container}>
             <Text style={styles.header_txt}>RELATÓRIO FOTOGRÁFICO</Text>
             <ScrollView style={styles.container}>
+                
                 <PhotoSection id={IDs[0]} title="Obrigatórias" mandatory={true}/>
                 <PhotoSection id={IDs[1]} title="Opcionais" mandatory={false}/>
                 <PhotoSection id={IDs[2]} mandatory={false}/>
