@@ -6,7 +6,6 @@
  */
 
 import { Response } from "express";
-import { OS } from "../items/photos.interface";
 
 //TO DO..
 
