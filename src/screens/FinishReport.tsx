@@ -8,6 +8,7 @@ import { generateUniqueID } from "../funcs/generateID"
 import { PdfGenerator } from "../PDF/pdfGenerator"
 import { sendPhotos } from "../funcs/sendPhotos"
 import RNFS from "react-native-fs"
+import { readImages } from "../funcs/readImages"
 
 type FinishScreenRouteProp = RouteProp<RootStackParamList, 'Finish'>
 
@@ -24,7 +25,8 @@ export const FinishReport = ({route}: FinishScreenProps) => {
 
     const ReportID = generateUniqueID();
     const report_JSON = JSON.stringify(receivedData)
-
+    const {images_report} = receivedData 
+    readImages(images_report)
 
     const handlePhotos = async (data: string) => {
         try{
