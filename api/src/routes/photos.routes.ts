@@ -8,10 +8,10 @@ import { storePhoto } from "../controllers/photos.controller";
    Created in: 02/12/2024
 */
 
-
 const router = Router();
 
 // Responsible route for sent the "Photos": (POST method): localhost:3000/api/photos
 router.post('/photos', storePhoto)
+router.get('/photos', (req, res) => {res.send('Photos endpoint')})
 
 export const photosRoutes = router
