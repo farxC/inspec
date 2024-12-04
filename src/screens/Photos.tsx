@@ -9,10 +9,12 @@ import { PhotosReportNavigationType, StackNavigation } from "../navigation/Route
 import { SubmitErrorHandler, SubmitHandler, useFormContext } from "react-hook-form"
 import { report_data } from "../types/reportData"
 import { useEffect } from "react"
+import { ControlledInput } from "../components/Input"
 export const Photos = () => {
 
     const {navigate} = useNavigation<StackNavigation>();
-    const {handleSubmit} = useFormContext<report_data>(); 
+    
+    const {control,handleSubmit} = useFormContext<report_data>(); 
     const goFinish = () => {
        navigate("Finish")
     }
@@ -34,13 +36,13 @@ export const Photos = () => {
        <SafeAreaView style={styles.container}>
             <Text style={styles.header_txt}>RELATÓRIO FOTOGRÁFICO</Text>
             <ScrollView style={styles.container}>
-                
+                <ControlledInput control={control} rules={{required: "* Obrigatório"}} name="os" label='O.S' mode="numeric"  placeholder="Insira o número da O.S"></ControlledInput>
                 <PhotoSection id={IDs[0]} title="Obrigatórias" mandatory={true}/>
                 <PhotoSection id={IDs[1]} title="Opcionais" mandatory={false}/>
                 <PhotoSection id={IDs[2]} mandatory={false}/>
             </ScrollView> 
             <View>
-                <SubmitButton onPress={() => console.log("Hello world!")} ></SubmitButton>
+                <SubmitButton onPress={handleSubmit(goFinish,onInvalid)} ></SubmitButton>
             </View>
 
        </SafeAreaView>

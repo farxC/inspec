@@ -13,6 +13,7 @@ const dateToString = (date: Date) => {
 
 export const formStore = new Store<report_data>({
     date: dateToString(new Date),
+    os: undefined,
     images_report: {
     failureEvidence:'',
     identifier: '',

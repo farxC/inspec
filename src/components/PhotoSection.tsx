@@ -53,18 +53,18 @@ const styles = StyleSheet.create({
         paddingVertical: '4%', 
         alignSelf: 'center',
         justifyContent: 'center',
-        marginVertical: '8%'
+        marginVertical: '7%'
     },
     main:{
-        height: '27%',
+        height: '25%',
     },
     borderView: {
         flexDirection: "column",
         borderBottomColor: "black",
         borderBottomWidth: StyleSheet.hairlineWidth,
         alignItems: "center",
-        marginBottom: '-2%',
-        top: '17%'  
+        marginBottom: '-1%',
+        top: '15%'  
     },
     
 })

@@ -14,6 +14,7 @@ type images_subtitle = {
 
 export type report_data = {
     date: string;
+    os: number | undefined;
     images_report: ImagesReportField;
     images_subtitles?: images_subtitle
 }

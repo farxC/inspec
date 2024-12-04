@@ -5,12 +5,11 @@ import { Controller, FieldValues, UseControllerProps, useFormContext } from "rea
 import { ImagesReportField, report_data } from "../types/reportData";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { formStore } from "../storage/global";
-import { clearAllItems } from "../storage/clearItems";
 import { CameraOptions, ImageLibraryOptions, ImagePickerResponse, launchCamera, launchImageLibrary } from "react-native-image-picker";
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Image } from "react-native";
 import React from "react";
-import { ControlledSubtitleInput } from "./Subtitle";
+import { ControlledInput } from "./Input";
 import { loadImage } from "../storage/loadImages";
 
 
@@ -43,8 +42,6 @@ export const PhotoCard = ({
   id,
   onChange,
   value,
-  subtitleInput
-
 }: PhotoProps) => {
 
 
@@ -231,7 +228,7 @@ export const PhotoCard = ({
 
       )}
       <View>
-        {title ? <Text style={styles.title}>{title}</Text> : <ControlledSubtitleInput control={control} rules={{ maxLength: 30 }} name={`images_subtitles.${id}`} />}
+        {title ? <Text style={styles.title}>{title}</Text> : <ControlledInput placeholder="Insira o subtítulo" mode="text" control={control} rules={{ maxLength: 30 }} name={`images_subtitles.${id}`} />}
         <View style={styles.iconsView}>
           <Pressable onPress={handleCameraLaunch}>
             <Icon size={22} style={styles.icons} name='camera' />
@@ -283,7 +280,7 @@ const styles = StyleSheet.create({
     width: "30%",
     borderRadius: 8,
     margin: "1%",
-    paddingBottom: "7%",
+    paddingBottom: "8%",
     borderColor: '#c4c4c4',
 
   },
