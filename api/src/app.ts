@@ -1,7 +1,6 @@
 import cors from 'cors'
 import express from 'express';
 import { router } from './routes';
-import { photosRoutes } from './routes/photos.routes';
 
 const app = express();
 
@@ -14,11 +13,10 @@ app.use(express.json());
 app.use(express.json({ type: 'application/vnd.api+json' }));
 app.use(cors());
 app.get('/', (req, res) => {
-  res.send('Hello World!!!');
+  res.send('Hello World!');
 });
 
-// ==> API Routes:
 app.use(index)
-app.use('/api/', photosRoutes)
+
 
 export {app}

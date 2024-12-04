@@ -40,7 +40,7 @@ export const Photos = () => {
                 <PhotoSection id={IDs[2]} mandatory={false}/>
             </ScrollView> 
             <View>
-                <SubmitButton onPress={handleSubmit(goFinish, onInvalid)} ></SubmitButton>
+                <SubmitButton onPress={() => console.log("Hello world!")} ></SubmitButton>
             </View>
 
        </SafeAreaView>

@@ -1,17 +1,13 @@
 import { RouteProp } from "@react-navigation/native"
-import { Text, TouchableOpacity, View} from "react-native"
+import { View } from "react-native"
 import { RootStackParamList } from "../navigation/Routes"
 import { useEffect, useState } from "react"
 import { formStore } from "../storage/global"
-import { ImagesReportField, report_data } from "../types/reportData"
+import { ImagesReportField } from "../types/reportData"
 import { generateUniqueID } from "../funcs/generateID"
+import { treatData } from "../funcs/treatData"
 import { PdfGenerator } from "../PDF/pdfGenerator"
-import axios, { Axios } from "axios"
 import { api } from "../services/api"
-
-
-
-
 type FinishScreenRouteProp = RouteProp<RootStackParamList, 'Finish'>
 
 type FinishScreenProps = {
@@ -21,9 +17,8 @@ type FinishScreenProps = {
 export const FinishReport = ({route}: FinishScreenProps) => {
     const [modalVisibility, setModalVisibility] = useState(false);
     const [filePath, setFilePath] = useState<string| undefined>(undefined);
-
-    //Receive data using pull state
     const receivedData = formStore.useState((state) => state);
+
     const ReportID = generateUniqueID();
     const report_JSON = JSON.stringify(receivedData)
 
@@ -33,7 +28,7 @@ export const FinishReport = ({route}: FinishScreenProps) => {
        return res
     }
 
-    const res = await sendPhotos(report_JSON)   
+    //const res = await sendPhotos(report_JSON)   
 
 
     // Getting the image from the ImagesReportField interface.
@@ -49,6 +44,7 @@ export const FinishReport = ({route}: FinishScreenProps) => {
             } catch(error){
                 console.error('Error:', error)
             }
+       
         };
         generatePDF()
 
@@ -61,7 +57,7 @@ export const FinishReport = ({route}: FinishScreenProps) => {
 
     return (
         <View>
-           
+            
         </View>
     )
 }
