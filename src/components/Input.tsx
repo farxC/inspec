@@ -62,7 +62,7 @@ export function ControlledInput<FormType extends FieldValues>({
             rules={rules}
             render={({ field, fieldState: { error } }) => (
                 <>
-                    <CustomTextInput mode={mode} placeholder={placeholder} {...props} />
+                    <CustomTextInput mode={mode} placeholder={placeholder} onChangeText={(input) => field.onChange(input)} value={field.value} {...props} />
                     {error &&
                         <Text style={styles.error}>{error.message}</Text>
                     }

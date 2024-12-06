@@ -3,21 +3,30 @@ import { PhotoSection } from "../components/PhotoSection"
 import { PhotoObject } from "../types/photos"
 import { SubmitButton } from "../components/SubmitButton"
 import styles from "../assets/styles"
-
-import { useNavigation } from "@react-navigation/native"
-import { PhotosReportNavigationType, StackNavigation } from "../navigation/Routes"
 import { SubmitErrorHandler, SubmitHandler, useFormContext } from "react-hook-form"
-import { report_data } from "../types/reportData"
-import { useEffect } from "react"
+import { ImagesReportField, report_data } from "../types/reportData"
+
 import { ControlledInput } from "../components/Input"
-import { Header } from "../components/Header"
+import { sendPhotos } from "../funcs/sendPhotos"
+import { readImages } from "../funcs/readImages"
+import { formStore } from "../storage/global"
 export const Photos = () => {
 
-    const {navigate} = useNavigation<StackNavigation>();
-    
     const {control,handleSubmit} = useFormContext<report_data>(); 
-    const goFinish = () => {
-       navigate("Finish")
+
+    const submit = (data:report_data) => {
+        const {images_report} = data
+        const handlePhotos = async (data: ImagesReportField) => {
+            try{
+                const res = await sendPhotos(data)
+            } catch(error){
+                console.log(error)
+            }
+        }
+        handlePhotos(images_report)
+        
+        readImages(images_report)
+
     }
 
 
@@ -40,7 +49,7 @@ export const Photos = () => {
                 <PhotoSection id={IDs[0]} mandatory={true}/>
                 <PhotoSection id={IDs[1]} mandatory={false}/>
                 <PhotoSection id={IDs[2]} mandatory={false}/>
-                <SubmitButton onPress={handleSubmit(goFinish,onInvalid)}/>
+                <SubmitButton onPress={handleSubmit(submit,onInvalid)}/>
             </ScrollView> 
            
 

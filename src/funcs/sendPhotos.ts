@@ -1,5 +1,6 @@
 import { api } from "../services/api"
-export const sendPhotos = async (data: string) => {
+import { ImagesReportField } from "../types/reportData"
+export const sendPhotos = async (data: ImagesReportField) => {
     const req = await api.post("/api/photos", data)
     return req
  }
