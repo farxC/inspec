@@ -1,10 +1,49 @@
-import { FieldValues,Controller, UseControllerProps } from "react-hook-form"
-import { StyleSheet, Text, TextInput, TextInputProps, View} from "react-native"
+import { useRef } from "react"
+import { FieldValues, Controller, UseControllerProps } from "react-hook-form"
+import { StyleSheet, Text, TextInput, TextInputProps, TouchableOpacity, View } from "react-native"
+import Icon from "react-native-vector-icons/FontAwesome5"
 
 type InputProps = TextInputProps & {
     mode: "text" | "numeric"
     label?: string
     placeholder: string
+}
+
+const CustomTextInput = ({
+    mode,
+    label,
+    placeholder,
+    style,
+    onChangeText,
+    value,
+}: InputProps) => {
+
+    const textInputRef = useRef<TextInput>(null);
+    const handleFocus = () => {
+        if (textInputRef.current){
+            textInputRef.current.focus()
+        }
+    }
+
+
+    return (
+        <TouchableOpacity style={style} onPress={handleFocus}>
+            {label &&
+                <View style={styles.labelView}>
+                     <Icon size={20} name="info-circle" style={{padding: 4, marginHorizontal: 4}}></Icon>
+                     <Text style={styles.label}>{label}</Text>
+                </View>
+               
+            }
+            <TextInput inputMode={mode} style={[styles.textInput]} onChangeText={onChangeText}
+                placeholder={placeholder}
+                placeholderTextColor={"#252525"}
+                value={value}
+                ref={textInputRef}
+            />
+        </TouchableOpacity>
+
+    )
 }
 
 
@@ -13,29 +52,20 @@ export function ControlledInput<FormType extends FieldValues>({
     name,
     rules,
     mode,
-    label,
     placeholder,
     ...props
-}: UseControllerProps<FormType> & InputProps){
-    return(
+}: UseControllerProps<FormType> & InputProps) {
+    return (
         <Controller
             control={control}
             name={name}
             rules={rules}
-            render={({field, fieldState: {error}}) => (
+            render={({ field, fieldState: { error } }) => (
                 <>
-                    {label && 
-                        <Text style={styles.label}>{label}</Text>
-                    }
-                     <TextInput inputMode={mode} style={styles.textInput} onChangeText={(input) => {
-                        field.onChange(input)
-                        }} 
-                        placeholder={placeholder}
-                        value={field.value}
-                      />
-                       {error && 
+                    <CustomTextInput mode={mode} placeholder={placeholder} {...props} />
+                    {error &&
                         <Text style={styles.error}>{error.message}</Text>
-                        }
+                    }
                 </>
 
             )}
@@ -47,21 +77,26 @@ const styles = StyleSheet.create({
     textInput: {
         alignSelf: 'center',
         textAlign: "justify",
-        fontSize: 10,
+        fontSize: 12,
         fontWeight: "bold",
         alignItems: "center",
         justifyContent: "center",
         padding: 7,
-    
-      },
-      label: {
+
+    },
+    labelView: {
+        flexDirection: 'row',
+        justifyContent: "center"
+    },
+    label: {
         alignSelf: "center",
         fontWeight: "bold",
         fontSize: 16
-      },
-      error: {
+    },
+    error: {
         color: "red",
         fontWeight: "bold",
         alignSelf: "center"
-      }
+    }
+
 })

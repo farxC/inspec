@@ -312,7 +312,7 @@ const styles = StyleSheet.create({
     width: '85%'
   },
   iconAddSty: {
-    color: "#065A1E",
+    color: "#101D5A",
   },
   img: {
     flexWrap: 'nowrap',
@@ -329,7 +329,7 @@ const styles = StyleSheet.create({
     paddingVertical: "2%",
     paddingHorizontal: "10%",
     color: 'white',
-    backgroundColor: '#09511D',
+    backgroundColor: '#101D5A',
     borderRadius: 50,
     marginBottom: '2%',
   },

@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         paddingVertical: '4%', 
         alignSelf: 'center',
         justifyContent: 'center',
-        marginVertical: '7%'
+        marginVertical: '3%'
     },
     main:{
         height: '25%',

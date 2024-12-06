@@ -1,39 +1,17 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
 
+import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import React, { StrictMode, useEffect } from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 import Navigator from './src/navigation/Index';
-
+import BootSplash from "react-native-bootsplash"
+import { AnimatedBootSplash } from './src/components/AnimatedBootSplash';
 
 
 function App(): React.JSX.Element {
-  
+  const [visible, setVisible] = useState(true);
   return (   
          <NavigationContainer>
-            <Navigator/>        
+            <Navigator/>
+            {visible && <AnimatedBootSplash onAnimationEnd={() => {setVisible(false)}}/>}        
         </NavigationContainer>
 
   );

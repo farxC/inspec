@@ -1,42 +1,24 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-    container: {
-      height: '100%',
-      flex: 1
-    },
-  
-  
-  
-    componentsInput: {  /*Estilização dos Inputs de Modo Geral*/
-      borderWidth: 2,
-      borderRadius: 8,
-      margin: "1.4%",
-      borderColor: "#c4c4c4",
-      alignSelf: 'center',
-      justifyContent: 'center',
-      flexDirection: "row",
-      width: '85%',
-    },
-  
-    input: {         /*Estilização Interna dos Inputs Gerais*/
-      fontSize: 16,
-      color: "#065A1E",
-      fontWeight: '800',
-      textAlign: 'center',
-      width: '80%',
-  
-    },
-  
-    header_txt: {       /*Estilização da Header Geral das Screens*/
-      backgroundColor: "#CDF4E1",
-      color: "#09511D",
-      fontSize: 25,
-      textAlign: "center",
-      paddingVertical: '3%',
-      marginBottom: '1%'
-    },
-  
-  });
-  
-  export default styles
+  container: {
+    height: '100%',
+    flex: 1,
+    color: "#F5F5F5"
+  },
+
+  input: {
+    borderWidth: 3,
+    borderRadius: 5,
+    borderColor: "#A8A8A8",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    marginTop: "5%",
+    alignSelf: "center",
+    width: "75%"
+  }
+
+
+});
+
+export default styles

@@ -10,6 +10,7 @@ import { SubmitErrorHandler, SubmitHandler, useFormContext } from "react-hook-fo
 import { report_data } from "../types/reportData"
 import { useEffect } from "react"
 import { ControlledInput } from "../components/Input"
+import { Header } from "../components/Header"
 export const Photos = () => {
 
     const {navigate} = useNavigation<StackNavigation>();
@@ -34,16 +35,14 @@ export const Photos = () => {
 
     return(
        <SafeAreaView style={styles.container}>
-            <Text style={styles.header_txt}>RELATÓRIO FOTOGRÁFICO</Text>
             <ScrollView style={styles.container}>
-                <ControlledInput control={control} rules={{required: "* Obrigatório"}} name="os" label='O.S' mode="numeric"  placeholder="Insira o número da O.S"></ControlledInput>
-                <PhotoSection id={IDs[0]} title="Obrigatórias" mandatory={true}/>
-                <PhotoSection id={IDs[1]} title="Opcionais" mandatory={false}/>
+                <ControlledInput control={control} rules={{required: "* Obrigatório"}} name="os" label='O.S/Tag' style={styles.input} mode="numeric"  placeholder=""></ControlledInput>
+                <PhotoSection id={IDs[0]} mandatory={true}/>
+                <PhotoSection id={IDs[1]} mandatory={false}/>
                 <PhotoSection id={IDs[2]} mandatory={false}/>
+                <SubmitButton onPress={handleSubmit(goFinish,onInvalid)}/>
             </ScrollView> 
-            <View>
-                <SubmitButton onPress={handleSubmit(goFinish,onInvalid)} ></SubmitButton>
-            </View>
+           
 
        </SafeAreaView>
     )
