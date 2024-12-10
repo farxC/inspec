@@ -3,14 +3,16 @@ import { PermissionsAndroid, Platform, Pressable, StyleSheet, Text, TouchableOpa
 import { useState } from "react";
 import { Controller, FieldValues, UseControllerProps, useFormContext } from "react-hook-form";
 import { ImagesReportField, report_data } from "../types/reportData";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage, { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { formStore } from "../storage/global";
 import { CameraOptions, ImageLibraryOptions, ImagePickerResponse, launchCamera, launchImageLibrary } from "react-native-image-picker";
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Image } from "react-native";
 import React from "react";
 import { ControlledInput } from "./Input";
-import { loadImage } from "../storage/loadImages";
+import { loadImage } from "../storage/loadImage";
+import { useImage } from "./useImage";
+
 
 
 interface PhotoProps {
@@ -47,19 +49,24 @@ export const PhotoCard = ({
 
   // States for image management
   const [selectedImage, setSelectedImage] = useState<string>(''); // Store the selected image URI
-  const [addImageView, setAddImageView] = useState(true);
-  const [valueIMG, setValueIMG] = useState<string | undefined>();
+  const [addImage, setAddImage] = useState(true);
   const [isPressed, setIsPressed] = useState(false);
   const { control, getValues } = useFormContext<report_data>();
 
+  //Load saved image from AsyncStorage on component mount
   useEffect(() => {
+    const retrieveImage = async (id: number) => {
+      const loadedImage = await loadImage(id);
+      if (typeof loadedImage === "string" && loadedImage.length > 1) {
+        setSelectedImage(loadedImage);
+        
+        setAddImage(false)
+      };
+    };
+    retrieveImage(id);
+  }, [id]);
+  
 
-
-    if (typeof value === "string") {
-      setValueIMG(selectedImage)
-    }
-
-  }, [value])
 
   //Refatorar essa função inteira.
   const handleStateOfImageSelected = (actualState: report_data, id: number, uri: string) => {
@@ -80,7 +87,6 @@ export const PhotoCard = ({
       actualState.images_report.optionalImages[index] = uri
 
       //Extracting subtitle
-      
       let subtitle = getValues(`images_subtitles.${id}`)
       //Typescript narrowing for type checking to avoid undefined.
       if (subtitle.length != 0 && actualState.images_subtitles !== undefined) {
@@ -97,33 +103,15 @@ export const PhotoCard = ({
     }
   }
 
-
-
   const deleteItem = (id: number) => {
     setIsPressed(!isPressed)
     AsyncStorage.removeItem(id.toString())
     const removeCurrUri = ''
-    setAddImageView(true)
+    setAddImage(true)
     formStore.update((state) => {
       handleStateOfImageSelected(state, id, removeCurrUri)
     })
   }
-
-  // Load saved image from AsyncStorage on component mount
-  useEffect(() => {
-    const retrieveImage = async() => {
-      const loadedImage = await loadImage(id);
-      if(typeof loadedImage === "string" && loadedImage.length > 1){
-        setSelectedImage(loadedImage);
-        setAddImageView(false);
-      }
-    }
-    retrieveImage();
-    
-  }, [id]);
-
-
-
 
 
   // Save the selected image to AsyncStorage
@@ -144,14 +132,13 @@ export const PhotoCard = ({
   const handleImageSelection = async (uri: string, id: number) => {
     if (uri) {
       await saveImage(uri, id);
-      onChange?.(uri); // Call the onChange callback with the selected image URI
-      setSelectedImage(uri)
-      setAddImageView(false)
       formStore.update((state) => {
         handleStateOfImageSelected(state, id, uri);
-
-      })
-
+      });
+      onChange?.(uri); // Call the onChange callback with the selected image URI
+      setSelectedImage(uri)
+      setAddImage(false)
+     
     }
   };
 
@@ -199,9 +186,6 @@ export const PhotoCard = ({
 
   }
 
-
-
-
   const imagePicker = () => {
 
     const pickerOptions: ImageLibraryOptions = {
@@ -219,7 +203,7 @@ export const PhotoCard = ({
 
   return (
     <View style={styles.viewAdd}>
-      {addImageView ? (
+      {addImage ? (
         <TouchableOpacity style={styles.buttonAdd} onPress={imagePicker}>
           <Icon style={styles.iconAddSty} size={30} name="add-circle-outline" />
         </TouchableOpacity>
@@ -263,6 +247,7 @@ export function ControlledPhotoCard<FormType extends FieldValues>({
         <>
           <Text style={{ color: 'red' }}>{error?.message}</Text>
           <PhotoCard value={field.value}  {...PhotoRegisterProps} onChange={(selectedIMG) => {
+            console.log(field.value)
             field.onChange(selectedIMG)
           }} />
         </>

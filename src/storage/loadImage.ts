@@ -1,7 +1,7 @@
 import { clearAllItems } from "./clearItems";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const loadImage = async (id: number): Promise<string> => {
+export const loadImage = async (id: number) => {
     try {
       const imageURI = await AsyncStorage.getItem(id.toString());
       if (typeof imageURI === "string" && imageURI ) {
@@ -13,7 +13,4 @@ export const loadImage = async (id: number): Promise<string> => {
       console.error('Error loading image from AsyncStorage:', error);
       return ''
     }
-
-    //I'll improve this in the future.
-    return ''
 };
