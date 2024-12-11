@@ -82,4 +82,4 @@ yarn-error.log
 /server/api/**/node_modules/
 
 # DIST 
-/server/api/**/dist/
+dist/
