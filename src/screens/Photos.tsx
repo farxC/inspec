@@ -24,9 +24,7 @@ export const Photos = () => {
             }
         }
         handlePhotos(images_report)
-        
         readImages(images_report)
-
     }
 
 

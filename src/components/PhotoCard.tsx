@@ -59,7 +59,7 @@ export const PhotoCard = ({
       const loadedImage = await loadImage(id);
       if (typeof loadedImage === "string" && loadedImage.length > 1) {
         setSelectedImage(loadedImage);
-        
+        onChange?.(loadedImage); // Call the onChange callback with the selected image URI
         setAddImage(false)
       };
     };

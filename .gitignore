@@ -76,3 +76,10 @@ yarn-error.log
 
 # Env
 .env
+
+
+# Node_modules API
+/server/api/**/node_modules/
+
+# DIST 
+/server/api/**/dist/
