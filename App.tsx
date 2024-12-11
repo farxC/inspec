@@ -5,7 +5,6 @@ import Navigator from './src/navigation/Index';
 import BootSplash from "react-native-bootsplash"
 import { AnimatedBootSplash } from './src/components/AnimatedBootSplash';
 
-
 function App(): React.JSX.Element {
   const [visible, setVisible] = useState(true);
   return (   
