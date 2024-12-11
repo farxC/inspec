@@ -247,7 +247,6 @@ export function ControlledPhotoCard<FormType extends FieldValues>({
         <>
           <Text style={{ color: 'red' }}>{error?.message}</Text>
           <PhotoCard value={field.value}  {...PhotoRegisterProps} onChange={(selectedIMG) => {
-            console.log(field.value)
             field.onChange(selectedIMG)
           }} />
         </>

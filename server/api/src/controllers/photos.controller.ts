@@ -13,6 +13,7 @@ export const storePhoto = async(req: Request, res: Response) => {
     const req_data = req.body
     
     try{
+        console.log(req_data)
         res.status(201).json({
             message: "Photos sent",
             photo: {req_data}

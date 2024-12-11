@@ -33,9 +33,9 @@ export const PhotoSection = ({title, mandatory, id}: SectionProps) => {
                 :
                     <>
                     
-                    <ControlledPhotoCard id={photosIDs[0]} control={control} name="images_report.optionalImages"/>
-                    <ControlledPhotoCard id={photosIDs[1]} control={control} name="images_report.optionalImages"/>
-                    <ControlledPhotoCard id={photosIDs[2]} control={control} name="images_report.optionalImages"/>
+                    <ControlledPhotoCard id={photosIDs[0]} control={control} name={`images_report.optionalImages.${photosIDs[0]}`}/>
+                    <ControlledPhotoCard id={photosIDs[1]} control={control} name={`images_report.optionalImages.${photosIDs[1]}`}/>
+                    <ControlledPhotoCard id={photosIDs[2]} control={control} name={`images_report.optionalImages.${photosIDs[2]}`}/>
                     </>
                     
                 }

@@ -24,6 +24,8 @@ export const Photos = () => {
             }
         }
         handlePhotos(images_report)
+        const res = readImages(images_report)
+       
         readImages(images_report)
     }
 
