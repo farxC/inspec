@@ -1,36 +1,51 @@
-import {readFile} from "react-native-fs"
+import { readFile } from "react-native-fs"
 import { ImagesReportField } from "../types/reportData"
 
-const checkOptionals = (optionalImages: ImagesReportField["optionalImages"]) => {
-    if(optionalImages){
-      const filtered = Object.fromEntries(
-        Object.entries(optionalImages).filter(([key, value]) => value.length > 1)
-      ) 
-      return filtered
-    }
-    return "Error handling optional images, not is a valid object"
-    
-}
 
-export const readImages = async (images: ImagesReportField) => {
-    const {optionalImages} = images
-    const optionalsFiltered = checkOptionals(optionalImages)
-   
-    const transposeToBase64 = async (item: keyof typeof images) => {
-       if(item !== "optionalImages"){
-         const base64Data = await readFile(images[item], 'base64');
-         images[item] = 'data:image/jpeg;base64'+ base64Data;
-       }
-       
+export const readImages = async <T extends ImagesReportField | { [key: string]: string }>(
+  value: T
+): Promise<T> => {
+
+  //Handle object of images (optionalImages)
+  if (typeof value === "object" && value !== null) {
+    const validImages = Object.fromEntries(
+      Object.entries(value)
+        //Remove if:
+        //1. The image path is an empty string;
+        //2. The image path is null or undefined;
+        .filter(([_, imagePath]) =>
+          imagePath !== "" &&
+          imagePath !== null &&
+          imagePath !== undefined
+        )
+    );
+    // If no valid ones remain, return the original value
+    if( Object.keys(validImages).length === 0){
+      return value;
     }
+    //Create a new object to avoid the original object mutation
+    const convertedValue = {...validImages};
+    for (const [key, imagePath] of Object.entries(convertedValue)){
+      try {
+        const base64Data = await readFile(imagePath,'base64');
+        convertedValue[key] = `data:image/jpeg;base64,${base64Data}`;
+        
+      } catch(error){
+        //console.warn("Couldn't process the image ", key, " in the path ", imagePath)
+        delete convertedValue[key];
+      }
+    }
+    return convertedValue as unknown as T;
+  }
+  if (typeof value === "string" && value !== ''){
     try{
-        for (const [key] of Object.entries(images)){
-            await transposeToBase64(key as keyof typeof images)
-        }
-
-        return images
+       const base64Data = await readFile(value, 'base64');
+       return `data:image/jpeg;base64,${base64Data}` as unknown as T;
     } catch(error){
-        console.error("Error converting image to base64", error)
+      console.warn(error)
+      return value
     }
-    
+  } 
+  //Retun the original value if doesn't match expected
+  return value
 }

@@ -10,23 +10,22 @@ import { ControlledInput } from "../components/Input"
 import { sendPhotos } from "../funcs/sendPhotos"
 import { readImages } from "../funcs/readImages"
 import { formStore } from "../storage/global"
+import { createIconSetFromFontello } from "react-native-vector-icons"
 export const Photos = () => {
 
     const {control,handleSubmit} = useFormContext<report_data>(); 
 
-    const submit = (data:report_data) => {
-        const {images_report} = data
-        const handlePhotos = async (data: ImagesReportField) => {
-            try{
-                const res = await sendPhotos(data)
-            } catch(error){
-                console.log(error)
+    const submit = async (data:report_data) => {
+        try{
+            const {images_report} = data
+            if(images_report.optionalImages){
+                const processedOptionalImages = await readImages(images_report.optionalImages);       
             }
-        }
-        handlePhotos(images_report)
-        const res = readImages(images_report)
-       
-        readImages(images_report)
+            const mandatoryImages = await(readImages(images_report))
+            console.log(mandatoryImages)
+        } catch(error){
+            console.error('Error in image processing: ',error)
+        } 
     }
 
 
