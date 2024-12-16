@@ -1,4 +1,4 @@
-import { report_data } from "../types/reportData";
+import { report_data } from "../types/report_data";
 
 
 export const createHTML = (data: report_data): string => {

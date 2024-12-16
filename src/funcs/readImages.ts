@@ -1,5 +1,5 @@
 import { readFile } from "react-native-fs"
-import { ImagesReportField } from "../types/reportData"
+import { ImagesReportField } from "../types/report_data"
 
 
 export const readImages = async <T extends ImagesReportField | { [key: string]: string }>(
@@ -25,13 +25,14 @@ export const readImages = async <T extends ImagesReportField | { [key: string]: 
     }
     //Create a new object to avoid the original object mutation
     const convertedValue = {...validImages};
-    for (const [key, imagePath] of Object.entries(convertedValue)){
+    console.log(convertedValue)
+    for (const [key, path] of Object.entries(convertedValue)){
       try {
-        const base64Data = await readFile(imagePath,'base64');
+        const base64Data = await readFile(path,'base64');
         convertedValue[key] = `data:image/jpeg;base64,${base64Data}`;
         
       } catch(error){
-        //console.warn("Couldn't process the image ", key, " in the path ", imagePath)
+        console.warn("Couldn't process the image ", key, " in the path ", path)
         delete convertedValue[key];
       }
     }

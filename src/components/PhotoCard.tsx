@@ -2,7 +2,7 @@ import { ReactElement, useEffect } from "react";
 import { PermissionsAndroid, Platform, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useState } from "react";
 import { Controller, FieldValues, UseControllerProps, useFormContext } from "react-hook-form";
-import { ImagesReportField, report_data } from "../types/reportData";
+import { ImagesReportField, report_data } from "../types/report_data";
 import AsyncStorage, { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { formStore } from "../storage/global";
 import { CameraOptions, ImageLibraryOptions, ImagePickerResponse, launchCamera, launchImageLibrary } from "react-native-image-picker";

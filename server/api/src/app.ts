@@ -1,7 +1,7 @@
 import cors from 'cors'
 import express from 'express';
 import { router } from './routes';
-import { photosRoutes } from './routes/photos.routes';
+
 
 const app = express();
 

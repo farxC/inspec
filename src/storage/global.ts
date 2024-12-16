@@ -1,5 +1,5 @@
 import { Store } from 'pullstate'
-import { report_data } from '../types/reportData'
+import { report_data } from '../types/report_data'
 
 
 

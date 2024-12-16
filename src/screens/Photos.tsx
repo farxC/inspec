@@ -3,14 +3,11 @@ import { PhotoSection } from "../components/PhotoSection"
 import { PhotoObject } from "../types/photos"
 import { SubmitButton } from "../components/SubmitButton"
 import styles from "../assets/styles"
-import { SubmitErrorHandler, SubmitHandler, useFormContext } from "react-hook-form"
-import { ImagesReportField, report_data } from "../types/reportData"
-
+import { SubmitErrorHandler, useFormContext } from "react-hook-form"
+import { ImagesReportField, report_data } from "../types/report_data"
 import { ControlledInput } from "../components/Input"
-import { sendPhotos } from "../funcs/sendPhotos"
 import { readImages } from "../funcs/readImages"
-import { formStore } from "../storage/global"
-import { createIconSetFromFontello } from "react-native-vector-icons"
+import { sendData } from "../funcs/sendData"
 export const Photos = () => {
 
     const {control,handleSubmit} = useFormContext<report_data>(); 
@@ -18,11 +15,15 @@ export const Photos = () => {
     const submit = async (data:report_data) => {
         try{
             const {images_report} = data
-            if(images_report.optionalImages){
-                const processedOptionalImages = await readImages(images_report.optionalImages);       
-            }
+           
             const mandatoryImages = await(readImages(images_report))
-            console.log(mandatoryImages)
+            if(images_report.optionalImages != null || images_report.optionalImages !== undefined){
+                const processedOptionalImages = await readImages(images_report.optionalImages); 
+                sendData({...data, images_report: {...mandatoryImages, optionalImages: processedOptionalImages}}).then((res) => console.log(res.status))
+            }
+            
+            sendData({...data, images_report:{...mandatoryImages}})
+
         } catch(error){
             console.error('Error in image processing: ',error)
         } 

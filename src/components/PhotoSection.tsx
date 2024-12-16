@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form"
 import { SafeAreaView, Text, View } from "react-native"
-import { report_data } from "../types/reportData"
+import { report_data } from "../types/report_data"
 import React from "react"
 import { PhotoObject } from "../types/photos"
 import { ControlledPhotoCard, PhotoCard } from "./PhotoCard"

@@ -1,7 +1,7 @@
 import { createNativeStackNavigator, NativeStackNavigationOptions, NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FormProvider, useForm } from "react-hook-form"
 import { Photos } from "../screens/Photos";
-import { report_data } from "../types/reportData";
+import { report_data } from "../types/report_data";
 import { formStore } from "../storage/global";
 import { NavigationProp } from "@react-navigation/native";
 import { Header } from "../components/Header";

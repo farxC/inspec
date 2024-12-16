@@ -1,4 +1,4 @@
-import { report_data } from "../types/reportData";
+import { report_data } from "../types/report_data";
 
 export const treatData = (data: report_data) => {
     if (data !== undefined ||  data !== null){

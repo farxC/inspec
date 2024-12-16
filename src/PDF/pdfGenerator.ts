@@ -1,6 +1,6 @@
 import React from 'react';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
-import { report_data } from '../types/reportData';
+import { report_data } from '../types/report_data';
 import { clearAllItems } from '../storage/clearItems';
 import { createHTML } from './createHTML';
 
