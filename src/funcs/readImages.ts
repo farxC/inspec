@@ -25,7 +25,6 @@ export const readImages = async <T extends ImagesReportField | { [key: string]: 
     }
     //Create a new object to avoid the original object mutation
     const convertedValue = {...validImages};
-    console.log(convertedValue)
     for (const [key, path] of Object.entries(convertedValue)){
       try {
         const base64Data = await readFile(path,'base64');

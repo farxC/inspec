@@ -14,15 +14,21 @@ export const Photos = () => {
 
     const submit = async (data:report_data) => {
         try{
+            //Object descruturing to hold the images from data.
             const {images_report} = data
-           
-            const mandatoryImages = await(readImages(images_report))
-            if(images_report.optionalImages != null || images_report.optionalImages !== undefined){
-                const processedOptionalImages = await readImages(images_report.optionalImages); 
-                sendData({...data, images_report: {...mandatoryImages, optionalImages: processedOptionalImages}}).then((res) => console.log(res.status))
+            const {optionalImages,...addressedImages} = images_report
+            
+            //Passing only the required images to process and encode to base64
+            const requiredImages = await readImages(addressedImages)
+
+            if(optionalImages != null || optionalImages !== undefined){
+                const encodedOptionals = await readImages(optionalImages); 
+                
+                // Sends both required and optional images.
+                sendData({...data, images_report: {...requiredImages, optionalImages: encodedOptionals}}).then((res) => console.log(res.status))
             }
             
-            sendData({...data, images_report:{...mandatoryImages}})
+            sendData({...data, images_report:{...requiredImages}})
 
         } catch(error){
             console.error('Error in image processing: ',error)
