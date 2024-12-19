@@ -6,13 +6,35 @@ import styles from "../assets/styles"
 import { SubmitErrorHandler, useFormContext } from "react-hook-form"
 import { ImagesReportField, report_data } from "../types/report_data"
 import { ControlledInput } from "../components/Input"
+import { SpinnerLoading } from "../components/SpinnerLoading"
+import { useState } from "react"
 import { readImages } from "../funcs/readImages"
 import { sendData } from "../funcs/sendData"
+import { PopUp } from "../components/PopUp"
+
+type Components = {
+    "spinner": boolean,
+    "popup": boolean,
+}
+
 export const Photos = () => {
 
-    const {control,handleSubmit} = useFormContext<report_data>(); 
+    const {control,handleSubmit, reset} = useFormContext<report_data>(); 
+    const [visible, setVisible] = useState<Components>(
+        {spinner: false,
+         popup: true,
+        }
+    )
+
+    const toggleComponents = (component: keyof Components) => {
+        setVisible((prev) => ({...prev, [component]: !prev[component]}))
+        //setTimeout(() => {setVisible((prev) => ({...prev, [component]: !prev[component]}))}, 3000)
+        return
+    }
 
     const submit = async (data:report_data) => {
+        //Trigger spinner loading
+        toggleComponents("spinner")
         try{
             //Object descruturing to hold the images from data.
             const {images_report} = data
@@ -23,16 +45,16 @@ export const Photos = () => {
 
             if(optionalImages != null || optionalImages !== undefined){
                 const encodedOptionals = await readImages(optionalImages); 
-                
                 // Sends both required and optional images.
                 sendData({...data, images_report: {...requiredImages, optionalImages: encodedOptionals}}).then((res) => console.log(res.status))
             }
             
             sendData({...data, images_report:{...requiredImages}})
-
+            
         } catch(error){
             console.error('Error in image processing: ',error)
         } 
+      
     }
 
 
@@ -41,6 +63,7 @@ export const Photos = () => {
             console.log(errors)
         }
     }
+
 
     const IDs: PhotoObject[] = [
         {IDsSession: [0,1,2]},
@@ -56,6 +79,8 @@ export const Photos = () => {
                 <PhotoSection id={IDs[1]} mandatory={false}/>
                 <PhotoSection id={IDs[2]} mandatory={false}/>
                 <SubmitButton onPress={handleSubmit(submit,onInvalid)}/>
+                <SpinnerLoading isVisible={visible.spinner}/>
+                <PopUp onPress={() => toggleComponents("popup")} isVisible={visible.popup} bodyMessage="Teste" title="a"></PopUp>
             </ScrollView> 
            
 
