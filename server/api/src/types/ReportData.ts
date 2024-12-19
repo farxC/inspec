@@ -12,7 +12,7 @@ type images_subtitle = {
     [key: string]: string;
 }
 
-export type report_data = {
+export type ReportData = {
     date: string;
     os: number | undefined;
     images_report: ImagesReportField;

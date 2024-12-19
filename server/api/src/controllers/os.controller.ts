@@ -5,12 +5,12 @@
  * Created in: 02/12/2024
  */
 import { Request, Response } from "express"
-import { report_data } from "../@types/report_data"
+import { ReportData } from "../types/ReportData"
 
 import fs from 'fs'
 //TO DO..
 
-export const storePhoto = async (req: Request<{}, {}, report_data>, res: Response): Promise<void> => {
+export const storePhoto = async (req: Request<{}, {}, ReportData>, res: Response): Promise<void> => {
 
     const images = req.body.images_report
     const date = req.body.date

@@ -1,6 +1,5 @@
 import Router from "express"
 import { storePhoto } from "../controllers/os.controller";
-import { report_data } from "../@types/report_data";
 
 
 /**
