@@ -1,5 +1,5 @@
 import Router from "express"
-import { storePhoto } from "../controllers/os.controller";
+import { getAll, storePhoto } from "../controllers/report.controller";
 
 
 /**
@@ -15,6 +15,6 @@ router.post('/os', storePhoto)
 
 
 // Responsible route for get all OS: (GET method): localhost:3000/api/os/all
-router.get('/os/all', (req, res) => {res.send('OS endpoint')})
+router.get('/os/all', getAll)
 
 export const osRoutes = router

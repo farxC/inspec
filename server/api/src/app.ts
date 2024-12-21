@@ -1,12 +1,13 @@
 import cors from 'cors'
 import express from 'express';
-import { router } from './routes';
+import { routes } from './routes';
 
 
+// Create a new instance of express.
 const app = express();
 
 // ==> API ROUTES:
-const index = router
+const index = routes
 
 //Middleware Section
 

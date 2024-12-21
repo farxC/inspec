@@ -50,6 +50,8 @@ export const Photos = () => {
             }
             
             sendData({...data, images_report:{...requiredImages}})
+
+            toggleComponents("spinner")
             
         } catch(error){
             console.error('Error in image processing: ',error)

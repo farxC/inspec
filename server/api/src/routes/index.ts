@@ -11,7 +11,11 @@ router.get("/api", (req,res) =>{
       });
 })
 
-//Using Photos Routes endpoint
+/*
+    Author: Rafael Ortiz Nunes
+    Here we define the base path and the router that's going to be called
+    Using all the Report Routes endpoint.
+*/
 router.use('/api', osRoutes)
 
-export {router}
+export {router as routes}

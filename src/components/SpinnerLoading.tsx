@@ -12,11 +12,9 @@ export const SpinnerLoading = ({isVisible}:{isVisible: boolean}) => {
                     </View>
                 </ModalComponent.Body>
             </ModalComponent.Container>
-            
         </ModalComponent>
     )
 }
-
 
 const styles = StyleSheet.create({
     view: {

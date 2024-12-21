@@ -12,7 +12,7 @@ type images_subtitle = {
     [key: string]: string;
 }
 
-export type ReportData = {
+export interface Report {
     date: string;
     os: number | undefined;
     images_report: ImagesReportField;
