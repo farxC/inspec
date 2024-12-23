@@ -33,9 +33,6 @@ Inspec/android/**/.cxx/
 Inspec/android/*.keystore
 Inspec/android/!debug.keystore
 
-<<<<<<< HEAD
-
-
 ## Node.js
 Inspec/node_modules/
 Inspec/npm-debug.log
@@ -86,6 +83,3 @@ Server/api/images/
 
 #Git backup
 Inspec/.git-backup/
-=======
-*.env
->>>>>>> 45e18e9e47662587c1bf7455f6a73c284ae80421
