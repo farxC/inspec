@@ -1,5 +1,5 @@
 import Router from "express"
-import { getAll, storePhoto } from "../controllers/report.controller";
+import { getReports, createReport} from "../controllers/report.controller";
 
 
 /**
@@ -10,11 +10,12 @@ import { getAll, storePhoto } from "../controllers/report.controller";
 
 const router = Router();
 
+
 // Responsible route for sent the Service Order (OS): (POST method): localhost:3000/api/os
-router.post('/os', storePhoto)
+router.post('/os', createReport)
 
 
 // Responsible route for get all OS: (GET method): localhost:3000/api/os/all
-router.get('/os/all', getAll)
+router.get('/os/all', getReports)
 
-export const osRoutes = router
+export const serviceOrderRoutes = router
