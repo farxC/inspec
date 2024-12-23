@@ -73,16 +73,4 @@ yarn-error.log
 !.yarn/sdks
 !.yarn/versions
 
-
-# Env
-.env
-
-
-# Node_modules API
-/server/api/**/node_modules/
-
-# DIST 
-dist/
-
-
-/server/api/images/
+*.env
