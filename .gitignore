@@ -83,3 +83,7 @@ Server/api/images/
 
 #Git backup
 Inspec/.git-backup/
+
+
+#Vscode
+.vscode/
