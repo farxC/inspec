@@ -1,88 +1,85 @@
-# OSX
-#
+# General
 .DS_Store
 
-# Xcode
-#
-build/
-*.pbxuser
-!default.pbxuser
-*.mode1v3
-!default.mode1v3
-*.mode2v3
-!default.mode2v3
-*.perspectivev3
-!default.perspectivev3
-xcuserdata
-*.xccheckout
-*.moved-aside
-DerivedData
-*.hmap
-*.ipa
-*.xcuserstate
-**/.xcode.env.local
+# React Native - Inspec Directory
+## iOS
+Inspec/ios/build/
+Inspec/ios/**/*.pbxuser
+Inspec/ios/!default.pbxuser
+Inspec/ios/**/*.mode1v3
+Inspec/ios/!default.mode1v3
+Inspec/ios/**/*.mode2v3
+Inspec/ios/!default.mode2v3
+Inspec/ios/**/*.perspectivev3
+Inspec/ios/!default.perspectivev3
+Inspec/ios/xcuserdata
+Inspec/ios/*.xccheckout
+Inspec/ios/*.moved-aside
+Inspec/ios/DerivedData
+Inspec/ios/*.hmap
+Inspec/ios/*.ipa
+Inspec/ios/*.xcuserstate
+Inspec/ios/**/.xcode.env.local
 
-# Android/IntelliJ
-#
-build/
-.idea
-.gradle
-local.properties
-*.iml
-*.hprof
-.cxx/
-*.keystore
-!debug.keystore
+## Android
+Inspec/android/build/
+Inspec/android/app/build/
+Inspec/android/.idea
+Inspec/android/.gradle
+Inspec/android/local.properties
+Inspec/android/**/*.iml
+Inspec/android/*.hprof
+Inspec/android/**/.cxx/
+Inspec/android/*.keystore
+Inspec/android/!debug.keystore
 
-# node.js
-#
-node_modules/
-npm-debug.log
-yarn-error.log
+## Node.js
+Inspec/node_modules/
+Inspec/npm-debug.log
+Inspec/yarn-error.log
 
-# fastlane
-#
-# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
-# screenshots whenever they are needed.
-# For more information about the recommended setup visit:
-# https://docs.fastlane.tools/best-practices/source-control/
+## Fastlane
+Inspec/**/fastlane/report.xml
+Inspec/**/fastlane/Preview.html
+Inspec/**/fastlane/screenshots
+Inspec/**/fastlane/test_output
 
-**/fastlane/report.xml
-**/fastlane/Preview.html
-**/fastlane/screenshots
-**/fastlane/test_output
+## Bundle
+Inspec/*.jsbundle
 
-# Bundle artifact
-*.jsbundle
+## CocoaPods
+Inspec/ios/Pods/
+Inspec/vendor/bundle/
 
-# Ruby / CocoaPods
-**/Pods/
-/vendor/bundle/
+## Metro
+Inspec/.metro-health-check*
 
-# Temporary files created by Metro to check the health of the file watcher
-.metro-health-check*
+## Testing
+Inspec/coverage
 
-# testing
-/coverage
+## Yarn
+Inspec/.yarn/*
+!Inspec/.yarn/patches
+!Inspec/.yarn/plugins
+!Inspec/.yarn/releases
+!Inspec/.yarn/sdks
+!Inspec/.yarn/versions
 
-# Yarn
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
+## Environment
+Inspec/*.env
 
+#NodeJS
+Server/api/node_modules/
+Server/api/logs/
 
-# Env
-.env
+# Linter
+Server/api/dist/
 
+# Environment
+Server/api/*.env
 
-# Node_modules API
-/server/api/**/node_modules/
+# Images Stored
+Server/api/images/
 
-# DIST 
-dist/
-
-
-/server/api/images/
+#Git backup
+Inspec/.git-backup/
