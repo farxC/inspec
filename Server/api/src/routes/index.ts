@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { osRoutes } from "./os.routes";
+import { serviceOrderRoutes } from "./serviceOrder.routes";
 
 const router = Router();
 router.get("/api", (req,res) =>{
@@ -16,6 +16,6 @@ router.get("/api", (req,res) =>{
     Here we define the base path and the router that's going to be called
     Using all the Report Routes endpoint.
 */
-router.use('/api', osRoutes)
+router.use('/api', serviceOrderRoutes)
 
 export {router as routes}

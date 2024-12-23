@@ -12,10 +12,4 @@ const connection = mysql.createPool({
     password: process.env.DB_PASSWORD
 })
 
-
-// connection.connect((error) => {
-//     if (error) throw Error
-//     console.log("Successfully connected to the database.")
-// })
-
 export {connection}
