@@ -1,6 +1,7 @@
 import cors from 'cors'
 import express from 'express';
 import { routes } from './routes';
+import path from 'node:path';
 
 
 // Create a new instance of express.
@@ -18,9 +19,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(cors());
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+
+//Serving static files
+app.use(express.static('src/public'))
 
 //Routes
 app.use(index)

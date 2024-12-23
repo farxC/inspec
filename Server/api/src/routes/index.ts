@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { serviceOrderRoutes } from "./serviceOrder.routes";
+import path from "node:path";
 
 const router = Router();
 router.get("/api", (req,res) =>{
@@ -8,7 +9,8 @@ router.get("/api", (req,res) =>{
         message: 'Welcome to the application!',
         available_endpoints: ["/api/os", "/api/os/all"],
         version: '1.0.0',
-      });
+    });
+     
 })
 
 /*

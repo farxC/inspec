@@ -7,9 +7,9 @@
 
 
 import { Request, Response } from "express"
-import { ImagesReportField, Report } from "../interfaces/reportData"
+import { ImagesReportField, Report } from "../interfaces/reportData";
 import * as fs from 'node:fs/promises';
-import { connection } from "../config/database"
+import { connection } from "../database/database"
 import { QueryError } from "mysql2"
 import { PoolConnection } from "mysql2/typings/mysql/lib/PoolConnection"
 import path from "node:path";
