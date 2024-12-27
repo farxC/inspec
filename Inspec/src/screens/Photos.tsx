@@ -12,24 +12,38 @@ import { readImages } from "../funcs/readImages"
 import { sendData } from "../funcs/sendData"
 import { PopUp } from "../components/PopUp"
 
-type Components = {
-    "spinner": boolean,
-    "popup": boolean,
+type ComponentState ={
+   [key in "spinner" | "popup"]: {
+        visibility: boolean,
+        message: string,
+    }
 }
+
 
 export const Photos = () => {
 
     const {control,handleSubmit, reset} = useFormContext<report_data>(); 
-    const [visible, setVisible] = useState<Components>(
-        {spinner: false,
-         popup: true,
+    const [state, setState] = useState<ComponentState>(
+        {spinner: {
+          visibility:false,
+          message: "Enviando informações..."
+        },
+         popup: {
+         visibility: false,
+         message: "Itens necessários não foram enviados."
+        },
         }
     )
 
-    const toggleComponents = (component: keyof Components) => {
-        setVisible((prev) => ({...prev, [component]: !prev[component]}))
-        //setTimeout(() => {setVisible((prev) => ({...prev, [component]: !prev[component]}))}, 3000)
-        return
+    const toggleComponents = (component: keyof ComponentState, message?: string) => {
+        setState((prevState) => ({
+            ...prevState,
+            [component]:{
+                ...prevState[component],
+                visibility: !prevState[component].visibility,
+                message: message ?? prevState[component].message
+            }
+        }))
     }
 
     const submit = async (data:report_data) => {
@@ -42,27 +56,27 @@ export const Photos = () => {
             
             //Passing only the required images to process and encode to base64
             const requiredImages = await readImages(addressedImages)
-
+            
             if(optionalImages != null || optionalImages !== undefined){
                 const encodedOptionals = await readImages(optionalImages); 
                 // Sends both required and optional images.
-                sendData({...data, images_report: {...requiredImages, optionalImages: encodedOptionals}}).then((res) => console.log(res.status))
+                const res = await sendData({...data, images_report: {...requiredImages, optionalImages: encodedOptionals}})
             }
-            
-            sendData({...data, images_report:{...requiredImages}})
-
-            toggleComponents("spinner")
-            
+            const res = await sendData({...data, images_report:{...requiredImages}});
+            toggleComponents("spinner");
+            setTimeout(() => toggleComponents("popup", res), 1000);
         } catch(error){
-            console.error('Error in image processing: ',error)
+            toggleComponents("spinner")
+            toggleComponents("popup", "Não foi possível enviar as informações, tente novamente.")
+            
         } 
       
     }
 
 
     const onInvalid: SubmitErrorHandler<report_data> = (errors) => {
-        if (errors.images_report){
-            console.log(errors)
+        if (errors){
+          toggleComponents("popup")
         }
     }
 
@@ -81,8 +95,8 @@ export const Photos = () => {
                 <PhotoSection id={IDs[1]} mandatory={false}/>
                 <PhotoSection id={IDs[2]} mandatory={false}/>
                 <SubmitButton onPress={handleSubmit(submit,onInvalid)}/>
-                <SpinnerLoading isVisible={visible.spinner}/>
-                <PopUp onPress={() => toggleComponents("popup")} isVisible={visible.popup} bodyMessage="Teste" title="a"></PopUp>
+                <SpinnerLoading isVisible={state.spinner.visibility} message={state.spinner.message}/>
+                <PopUp onPress={() => toggleComponents("popup")} isVisible={state.popup.visibility} title="Aviso" bodyMessage={state.popup.message}></PopUp>
             </ScrollView> 
            
 

@@ -1,14 +1,22 @@
 import { ActivityIndicator, Modal, View, Text, StyleSheet } from "react-native"
 import { ModalComponent } from "./ModalComponent"
 
-export const SpinnerLoading = ({isVisible}:{isVisible: boolean}) => {
+type Props = {
+    isVisible: boolean,
+    message: string
+}
+
+export const SpinnerLoading = ({
+    message,
+    isVisible
+}: Props) => {
     return(
         <ModalComponent isVisible={isVisible}>
             <ModalComponent.Container>
                 <ModalComponent.Body>
                     <View style={styles.view}>
                         <ActivityIndicator size={"large"}/>
-                        <Text>Enviando informações..</Text>
+                        <Text>{message}</Text>
                     </View>
                 </ModalComponent.Body>
             </ModalComponent.Container>

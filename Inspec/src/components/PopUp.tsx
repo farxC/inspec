@@ -39,5 +39,5 @@ const PopUpStyles = StyleSheet.create({
         fontSize: 20,
         fontWeight: "400",
         textAlign: "center"
-    }
+    },
 })
