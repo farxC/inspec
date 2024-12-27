@@ -49,8 +49,6 @@ export const storeImages = async (images: Report["images_report"], os: Report["o
 };
 
 
-
-
 export const createReport = async (req: Request<{}, {}, Report>, res: Response): Promise<void> => {
     const { images_report: images, date, os, images_subtitles: subtitles } = req.body
     const paths = await storeImages(images, os)

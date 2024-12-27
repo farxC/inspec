@@ -1,5 +1,4 @@
 package com.inspec
-import com.christopherdro.htmltopdf.RNHTMLtoPDFPackage
 import com.rnfs.RNFSPackage
 import android.app.Application
 import com.facebook.react.PackageList
