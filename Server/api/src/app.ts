@@ -20,9 +20,6 @@ app.use(express.json());
 
 app.use(cors());
 
-//Serving static files
-app.use(express.static('src/public'))
-
 //Routes
 app.use(index)
 
