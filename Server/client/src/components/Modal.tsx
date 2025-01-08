@@ -37,7 +37,6 @@ export const Modal = ({
     }
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDialogElement>) => {
-        const modalElement = modalRef.current;
         if (event.key === "Escape") {
             handleCloseModal();
         }
@@ -57,7 +56,7 @@ export const Modal = ({
                 </div>
             </div>
             <div className='d-flex justify-content-end'>
-                <button type='button' className='btn btn-danger d-flex ' onClick={handleCloseModal} >
+                <button type='button' className='btn btn-danger mt-4 ' onClick={handleCloseModal} >
                     Fechar
                 </button>
             </div>

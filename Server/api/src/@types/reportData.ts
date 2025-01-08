@@ -13,8 +13,8 @@ type images_subtitle = {
 }
 
 export interface Report {
-    date: string;
     os: number | undefined;
+    date: string;
     images_report: ImagesReportField;
     images_subtitles?: images_subtitle
 }

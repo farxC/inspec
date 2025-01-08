@@ -1,22 +1,27 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
 import React from 'react'
-import { Modal } from './Modal'
 import { ImagesModal } from './ImagesModal';
+import { Report } from '../@types/reportData';
 
-interface ImagesCardProps{
+interface ImagesCardProps extends Report {
     onClick?: () => void,
 }
 
 
 export function ImagesCard({
     onClick,
+    reportDate,
+    imagePathFailureEvidence,
+    imagePathIdentifier,
+    imagePathOverView,
+    id
 }: ImagesCardProps) {
     const [isOpen, setOpen] = React.useState<boolean>(false);
 
-    const toggleModal =() => {
+    const toggleModal = () => {
         setOpen(!isOpen)
-        
+
     }
 
     return (
@@ -25,15 +30,28 @@ export function ImagesCard({
                 <button className='btn btn-outline light' onClick={toggleModal}>
                     <img className="card-img-top" src="thumbnail.webp" alt="" />
                 </button>
-                <ImagesModal isOpen={isOpen} onClose={toggleModal}/>
+                <ImagesModal isOpen={isOpen} onClose={toggleModal} />
                 <div className="card-body">
                     <p className="card-text"> Labels, data e celular quem enviou</p>
                     <div className="d-flex justify-content-between align-items-center">
                         <div className="btn-group">
-                            <button type="button" className="btn btn-sm btn-outline-secondary">Visualizar Imagens</button>
+                            <button type="button" onClick={toggleModal} className="btn btn-sm btn-outline-secondary">Visualizar Imagens</button>
                             <button type="button" className="btn btn-sm btn-outline-secondary">Baixar Imagens</button>
                         </div>
-                        <small className="text-muted">Ordem de serviço: </small>
+                        
+                            <ul className='list-group list-group-flush w-25'>
+                                <li className='list-group-item'>
+                                    <small className="text-muted">Ordem de serviço: {id} </small>
+                                    {/* <p className='font-weight-bold' style={{fontSize: 12}}>010101</p> */}
+                                </li>
+                                <li className='list-group-item'>
+                                    <small className="text-muted">Enviado em: {reportDate}</small>
+                                    {/* <p className='font-weight-bold' style={{fontSize: 12}}>11:00 11/11/2025</p> */}
+                                </li>
+
+                            </ul>
+                      
+
                     </div>
                 </div>
             </div>

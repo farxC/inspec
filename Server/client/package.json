@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@tanstack/react-query": "^5.63.0",
+    "@types/axios": "^0.14.4",
     "@types/bootstrap": "^5.2.10",
+    "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "cra-template-typescript": "1.2.0",
     "react": "^19.0.0",
@@ -35,6 +38,7 @@
     ]
   },
   "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.62.16",
     "@types/jest": "^29.5.14",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",

@@ -1,5 +1,6 @@
 import React from "react";
 import { Modal } from "./Modal"
+import { ImageCard } from "./Image";
 
 interface ImagesModalProps {
     isOpen: boolean;
@@ -14,8 +15,11 @@ export const ImagesModal = ({
 
     return (
         <Modal title="Imagens" hasCloseBtn={true} isOpen={isOpen} onClose={onClose}>
-            <div className="modal-content">
-                <p>TO DO...</p>
+            <div className="row container">
+               <ImageCard/>
+               <ImageCard/>
+               <ImageCard/>
+               
             </div>
         </Modal>
     )

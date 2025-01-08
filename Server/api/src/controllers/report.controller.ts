@@ -7,7 +7,7 @@
 
 
 import { Request, Response } from "express"
-import { ImagesReportField, Report } from "../interfaces/reportData";
+import { ImagesReportField, Report } from "../@types/reportData";
 import * as fs from 'node:fs/promises';
 import { connection } from "../database/database"
 import { QueryError } from "mysql2"
@@ -89,7 +89,7 @@ export const createReport = async (req: Request<{}, {}, Report>, res: Response):
 
 export const getReports = (req: Request, res: Response) => {
     connection.getConnection((err: QueryError, conn: PoolConnection) => {
-        conn.query("select * from ServiceOrder", (err, result) => {
+        conn.query("SELECT * FROM ServiceOrder as so;", (err, result) => {
             conn.release();
             if (err) {
                 res.status(500).send({
@@ -100,7 +100,7 @@ export const getReports = (req: Request, res: Response) => {
             } else {
                 res.status(200).send({
                     message: "The query has been successfully",
-                    result: result
+                    data: result
                 });
             }
         });
