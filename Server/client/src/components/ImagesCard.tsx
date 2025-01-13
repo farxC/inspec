@@ -41,12 +41,12 @@ export function ImagesCard({
                         
                             <ul className='list-group list-group-flush w-25'>
                                 <li className='list-group-item'>
-                                    <small className="text-muted">Ordem de serviço: {id} </small>
-                                    {/* <p className='font-weight-bold' style={{fontSize: 12}}>010101</p> */}
+                                    <small className="text-muted">Ordem de serviço:</small>
+                                    <p className='font-weight-bold' style={{fontSize: 11}}>{id}</p>
                                 </li>
                                 <li className='list-group-item'>
-                                    <small className="text-muted">Enviado em: {reportDate}</small>
-                                    {/* <p className='font-weight-bold' style={{fontSize: 12}}>11:00 11/11/2025</p> */}
+                                    <small className="text-muted">Enviado em:</small>
+                                    <p className='font-weight-bold' style={{fontSize: 11}}>{reportDate}</p>
                                 </li>
 
                             </ul>

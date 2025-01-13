@@ -4,10 +4,13 @@ import { report_data } from '../types/report_data'
 
 
 const dateToString = (date: Date) => {
-    let day = date.getDate()
-    let month = date.getMonth() + 1
-    let year = date.getFullYear()
-    return day + "/" + month + "/" + year
+    let day = date.getDate(); 
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    let hour = date.getHours();
+    let min = date.getMinutes();
+    let sec = date.getSeconds();
+    return `${day}/${month}/${year} ${hour}:${min}:${sec}`
 }
 
 
