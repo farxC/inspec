@@ -23,4 +23,8 @@ app.use(cors());
 //Routes
 app.use(index)
 
+//Serve images from the dir
+app.use('/images', express.static(path.join(process.cwd(), 'images')))
+
+
 export {app}

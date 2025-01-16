@@ -8,13 +8,11 @@ export interface ImagesReportField{
     }
 }
 
-type images_subtitle = {
-    [key: string]: string;
-}
-
 export interface Report {
-    os: number | undefined;
+    os: number;
     date: string;
     images_report: ImagesReportField;
-    images_subtitles?: images_subtitle
+    images_subtitles?: {
+        [key: string]: string;
+    }
 }

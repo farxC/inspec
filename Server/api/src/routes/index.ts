@@ -1,9 +1,8 @@
-import { Router } from "express";
+import { Response, Router } from "express";
 import { serviceOrderRoutes } from "./serviceOrder.routes";
-import path from "node:path";
 
 const router = Router();
-router.get("/api", (req,res) =>{
+router.get("/api", (res: Response) =>{
     res.status(200).send({
         success: 'true',
         message: 'Welcome to the application!',

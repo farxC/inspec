@@ -12,16 +12,12 @@ import * as fs from 'node:fs/promises';
 import { connection } from "../database/database"
 import { QueryError } from "mysql2"
 import { PoolConnection } from "mysql2/typings/mysql/lib/PoolConnection"
-import path from "node:path";
+import { getByOsParams } from "../@types/params";
 
 export const storeImages = async (images: Report["images_report"], os: Report["os"]) => {
 
     if (!images.optionalImages) {
-        const savedPaths: ImagesReportField = {
-            "failureEvidence": "",
-            "identifier": "",
-            "overview": ""
-        }
+        const savedPaths: ImagesReportField = {...images}
 
         let filePath = ''
         try {
@@ -35,12 +31,12 @@ export const storeImages = async (images: Report["images_report"], os: Report["o
 
                 //Images save path
                 filePath = `images/${os}_${key}.jpeg`
-               
+
                 await fs.writeFile(filePath, buffer)
-                // Getting the absolute path in the FS and so pushing then to the object
-                savedPaths[key] = path.resolve(filePath)
+
+                savedPaths[key] = filePath
             }
-        
+
         } catch (error) {
             console.error("Empty object")
         };
@@ -64,15 +60,15 @@ export const createReport = async (req: Request<{}, {}, Report>, res: Response):
     VALUES (?, ?, ?, ?, ?)`;
 
     try {
-        if(paths !== undefined){
+        if (paths !== undefined) {
             connection.query(
                 query,
-                [os, date, paths["identifier"], paths["overview"],paths["failureEvidence"]],
+                [os, date, paths["identifier"], paths["overview"], paths["failureEvidence"]],
                 (err, res) => {
                     if (err) console.error(err)
                     console.log(res)
                 }
-           );
+            );
         }
         res.status(201).json({
             message: "OS sent",
@@ -80,7 +76,7 @@ export const createReport = async (req: Request<{}, {}, Report>, res: Response):
             date: { date },
 
         })
-        
+
     } catch (error) {
         console.log(error)
     }
@@ -106,3 +102,39 @@ export const getReports = (req: Request, res: Response) => {
         });
     });
 }
+
+
+export const getReportByOs = (req: Request<getByOsParams>, res: Response) => {
+    if (!req.params.os || isNaN(Number(req.params.os)) || Number(req.params.os) < 0) {
+        res.status(400).send({
+            message: "Número da Ordem de Serviço Inválido",
+            result: null,
+        })
+    }
+
+    connection.getConnection((err: QueryError, conn: PoolConnection) => {
+        if (err) {
+            res.status(500).send({
+                message: "Failed to connect to the database.",
+                result: null,
+                error: err
+            })
+        }
+
+        conn.query("SELECT * FROM ServiceOrder as so WHERE so.id = ?;", [req.params.os], (err, result) => {
+            conn.release();
+            if (err) {
+                res.status(500).send({
+                    message: "Internal server error. Please contact the responsible.",
+                    result: null,
+                    error: err
+                })
+            } else {
+                res.status(200).send({
+                    message: "Query has been successfully",
+                    data: result
+                })
+            }
+        })
+    })
+} 
